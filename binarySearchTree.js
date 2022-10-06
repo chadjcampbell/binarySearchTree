@@ -69,9 +69,19 @@ class Tree {
     if (root.data > data) return this.find(data, root.left);
   }
 
-  levelOrder(levelOrderArr = [], queue = [], root = this.root) {
+  levelOrder(root = this.root) {
+    let levelOrderArr = [],
+      queue = [];
     if (root === null) return;
-    //TODO
+    queue.push(root);
+    while (queue.length !== 0) {
+      root = queue[0];
+      levelOrderArr.push(root.data);
+      if (root.left !== null) queue.push(root.left);
+      if (root.right !== null) queue.push(root.right);
+      queue.shift();
+    }
+    return levelOrderArr;
   }
 }
 
