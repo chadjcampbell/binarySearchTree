@@ -11,7 +11,13 @@ class Tree {
     this.root = this.buildTree(arr);
   }
 
+  cleanArr(arr) {
+    let cleanedArr = [...new Set(arr)];
+    return cleanedArr;
+  }
+
   buildTree(arr) {
+    arr = this.cleanArr(arr);
     let start = 0;
     let end = arr.length - 1;
     if (start > end) {
@@ -34,7 +40,7 @@ class Tree {
   preOrder(node.right);
 } */
 
-let arr = [1, 2, 3, 4, 5, 6, 7];
+let arr = [1, 1, 2, 3, 4, 5, 6, 7, 7];
 
 let binaryTree = new Tree(arr);
 
