@@ -13,6 +13,7 @@ class Tree {
 
   cleanArr(arr) {
     let cleanedArr = [...new Set(arr)];
+    cleanedArr.sort((a, b) => a - b);
     return cleanedArr;
   }
 
@@ -29,6 +30,49 @@ class Tree {
     node.right = this.buildTree(arr.slice(mid + 1));
     return node;
   }
+
+  insert(data, root = this.root) {
+    if (root === null) {
+      root = new Node(data);
+      return root;
+    }
+    if (data < root.data) root.left = this.insert(data, root.left);
+    if (data > root.data) root.right = this.insert(data, root.right);
+    return root;
+  }
+
+  delete(data, root = this.root) {
+    if (root === null) return root;
+    if (data < root.data) root.left = this.delete(data, root.left);
+    else if (data > root.data) root.right = this.delete(data, root.right);
+    else {
+      if (root.left === null) return root.right;
+      else if (root.right === null) return root.left;
+      root.data = this.minValue(root.right);
+      root.right = this.delete(root.data, root.right);
+    }
+    return root;
+  }
+
+  minValue(root) {
+    let min = root.data;
+    while (root.left !== null) {
+      min = root.left.data;
+      root = root.left;
+    }
+    return min;
+  }
+
+  find(data, root = this.root) {
+    if (root === null || root.data === data) return root;
+    if (root.data < data) return this.find(data, root.right);
+    if (root.data > data) return this.find(data, root.left);
+  }
+
+  levelOrder(levelOrderArr = [], queue = [], root = this.root) {
+    if (root === null) return;
+    //TODO
+  }
 }
 
 /* function preOrder(node) {
@@ -40,7 +84,7 @@ class Tree {
   preOrder(node.right);
 } */
 
-let arr = [1, 1, 2, 3, 4, 5, 6, 7, 7];
+let arr = [15, 6, 5, 1, 1, 2, 4, 7, 7, 10, 11, 8, 9, 13, 12, 15, 14];
 
 let binaryTree = new Tree(arr);
 
