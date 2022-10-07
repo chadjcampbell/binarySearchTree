@@ -83,16 +83,31 @@ class Tree {
     }
     return levelOrderArr;
   }
-}
 
-/* function preOrder(node) {
-  if (node == null) {
-    return;
+  preOrder(root = this.root, preOrderArr = []) {
+    if (root === null) return;
+    preOrderArr.push(root.data);
+    this.preOrder(root.left, preOrderArr);
+    this.preOrder(root.right, preOrderArr);
+    return preOrderArr;
   }
-  document.write(node.data + " ");
-  preOrder(node.left);
-  preOrder(node.right);
-} */
+
+  inOrder(root = this.root, inOrderArr = []) {
+    if (root === null) return;
+    this.inOrder(root.left, inOrderArr);
+    inOrderArr.push(root.data);
+    this.inOrder(root.right, inOrderArr);
+    return inOrderArr;
+  }
+
+  postOrder(root = this.root, postOrderArr = []) {
+    if (root === null) return;
+    this.postOrder(root.left, postOrderArr);
+    this.postOrder(root.right, postOrderArr);
+    postOrderArr.push(root.data);
+    return postOrderArr;
+  }
+}
 
 let arr = [15, 6, 5, 1, 1, 2, 4, 7, 7, 10, 11, 8, 9, 13, 12, 15, 14];
 
