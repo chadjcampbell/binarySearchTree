@@ -107,6 +107,35 @@ class Tree {
     postOrderArr.push(root.data);
     return postOrderArr;
   }
+
+  treeHeight(root = this.root, height = 0) {
+    if (root === null) {
+      return -1;
+    }
+    //DOES THIS WORK?
+    let leftHeight = treeHeight(root.left, height);
+    let rightHeight = treeHeight(root.right, height);
+    height = Math.max(leftHeight, rightHeight) + 1;
+    return height;
+  }
+  nodeHeight(data) {}
+
+  depth(data, root = this.root, depth = 0) {
+    if (root.data === data) {
+      return depth;
+    }
+    if (root === null) {
+      return "No Node found with that data";
+    }
+    if (root.data < data) {
+      depth++;
+      return this.depth(data, root.right, depth);
+    }
+    if (root.data > data) {
+      depth++;
+      return this.depth(data, root.left, depth);
+    }
+  }
 }
 
 let arr = [15, 6, 5, 1, 1, 2, 4, 7, 7, 10, 11, 8, 9, 13, 12, 15, 14];
