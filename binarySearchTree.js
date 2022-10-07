@@ -139,11 +139,30 @@ class Tree {
       return this.depth(data, root.left, depth);
     }
   }
+
+  isBalanced(root = this.root, difference = 0) {
+    if (root === null) {
+      return -1;
+    }
+    let leftHeight = this.treeHeight(root.left, difference);
+    let rightHeight = this.treeHeight(root.right, difference);
+    difference = Math.abs(leftHeight - rightHeight);
+    if (difference > 1) return false;
+    return true;
+  }
+
+  rebalance(root = this.root) {
+    let newArr = this.inOrder();
+    this.root = this.buildTree(newArr);
+    return this.root;
+  }
 }
 
-let arr = [15, 6, 5, 1, 1, 2, 4, 7, 7, 10, 11, 8, 9, 13, 12, 15, 14];
+let arr = [15, 6, 5, 1, 1, 2, 4, 7, 7, 10, 11, 8, 9, 13, 12, 15, 14, 16];
 
 let binaryTree = new Tree(arr);
+
+// A function to print the BST to the console
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node.right !== null) {
@@ -155,4 +174,30 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+// Console tests for the Tree methods
+
+console.log("Here's a pretty visual of our initial tree");
 prettyPrint(binaryTree.root);
+console.log(`Is it balanced? ${binaryTree.isBalanced()}`);
+console.log("Logging tree in level, pre, post, and in order");
+console.log(binaryTree.levelOrder());
+console.log(binaryTree.preOrder());
+console.log(binaryTree.postOrder());
+console.log(binaryTree.inOrder());
+console.log("Now we unbalance the tree by adding several elements");
+binaryTree.insert(100);
+binaryTree.insert(105);
+binaryTree.insert(125);
+binaryTree.insert(130);
+prettyPrint(binaryTree.root);
+console.log(`Is it balanced? ${binaryTree.isBalanced()}`);
+console.log("Now we rebalance the tree");
+binaryTree.rebalance();
+prettyPrint(binaryTree.root);
+console.log(`Is it balanced? ${binaryTree.isBalanced()}`);
+console.log("Logging tree in level, pre, post, and in order");
+console.log(binaryTree.levelOrder());
+console.log(binaryTree.preOrder());
+console.log(binaryTree.postOrder());
+console.log(binaryTree.inOrder());
+console.log("Aren't binary search trees fun?!");
