@@ -112,13 +112,16 @@ class Tree {
     if (root === null) {
       return -1;
     }
-    //DOES THIS WORK?
-    let leftHeight = treeHeight(root.left, height);
-    let rightHeight = treeHeight(root.right, height);
+    let leftHeight = this.treeHeight(root.left, height);
+    let rightHeight = this.treeHeight(root.right, height);
     height = Math.max(leftHeight, rightHeight) + 1;
     return height;
   }
-  nodeHeight(data) {}
+
+  nodeHeight(data) {
+    if (this.find(data) === null) return "Not a valid node";
+    return this.treeHeight() - this.depth(data);
+  }
 
   depth(data, root = this.root, depth = 0) {
     if (root.data === data) {
